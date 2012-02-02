@@ -14,3 +14,6 @@ bind j next
 bind l windowlist
 shell bash
 
+defbce "on"
+term xterm-256color
+
