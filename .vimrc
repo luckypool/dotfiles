@@ -24,6 +24,7 @@ Bundle 'neocomplcache'
 Bundle 'ZenCoding.vim' 
 Bundle 'yanktmp.vim'
 " vim-scripts repos (colorscheme)
+"Bundle 'molokai'
 Bundle 'Color-Sampler-Pack'
 Bundle 'ScrollColors'
 " non github repos 
@@ -43,14 +44,13 @@ inoremap <expr><C-y> neocomplcache#close_popup()
 inoremap <expr><C-e> neocomplcache#cancel_popup()
 
 
-"============== for colorscheme ==============
-syntax on
-colorscheme wombat256
-
-
 "============== for scrollcolors ============= 
 map <silent><F3> :NEXTCOLOR<cr>
 map <silent><F2> :PREVCOLOR<cr>
+
+"============== display setting ==============
+syntax on
+colorscheme wombat256
 
 
 "============== for yanktmp.vimrc ============
