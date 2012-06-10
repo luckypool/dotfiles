@@ -7,8 +7,6 @@
 set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
-
-
 "============== for Bundle  ==================== 
 " do setup like bellow
 " $ git clone http://github.com/gmarik/vundle.git ~/.vim/vundle.git
@@ -18,6 +16,7 @@ filetype off
 set rtp+=~/.vim/vundle.git/
 call vundle#rc()
 " original repos on github 
+Bundle 'Lokaltog/vim-powerline'
 " Bundle 'Shougo/neocomplcache' 
 " vim-scripts repos 
 Bundle 'neocomplcache'
@@ -31,6 +30,8 @@ Bundle 'ScrollColors'
 Bundle 'git://git.wincent.com/command-t.git' 
 filetype plugin indent on
 
+"============== for vim-powerline ============= 
+set laststatus=2
 
 "============== for neocomplcache ============= 
 let g:neocomplcache_enable_at_startup=1
@@ -49,15 +50,19 @@ map <silent><F3> :NEXTCOLOR<cr>
 map <silent><F2> :PREVCOLOR<cr>
 
 "============== display setting ==============
-syntax on
+if &term =~ "xterm-256color" || "screen-256color"
+	" 256色
+	set t_Co=256
+	set t_Sf=[3%dm
+	set t_Sb=[4%dm
+endif
+syntax enable
 colorscheme wombat256
-
 
 "============== for yanktmp.vimrc ============
 map <silent> sy :call YanktmpYank()<CR> 
 map <silent> sp :call YanktmpPaste_p()<CR> 
 map <silent> sP :call YanktmpPaste_P()<CR> 
-
 
 "===== 前回終了したカーソル位置に移動する =====
 if has("autocmd")
