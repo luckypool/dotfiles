@@ -15,19 +15,23 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 set nocompatible
 filetype off
-set rtp+=~/.vim/vundle.git/
-call vundle#rc()
+
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+  call neobundle#rc(expand('~/.vim/bundle/'))
+endif
+
 " original repos on github 
 " Bundle 'Shougo/neocomplcache' 
 " vim-scripts repos 
-Bundle 'neocomplcache'
-Bundle 'ZenCoding.vim' 
-Bundle 'yanktmp.vim'
+NeoBundle 'neocomplcache'
+NeoBundle 'ZenCoding.vim' 
+NeoBundle 'yanktmp.vim'
 " vim-scripts repos (colorscheme)
-Bundle 'Color-Sampler-Pack'
-Bundle 'ScrollColors'
+NeoBundle 'Color-Sampler-Pack'
+NeoBundle 'ScrollColors'
 " non github repos 
-Bundle 'git://git.wincent.com/command-t.git' 
+NeoBundle 'git://git.wincent.com/command-t.git' 
 filetype plugin indent on
 
 
