@@ -63,7 +63,7 @@ map <silent> sp :call YanktmpPaste_p()<CR>
 map <silent> sP :call YanktmpPaste_P()<CR> 
 
 
-"===== $BA02s=*N;$7$?%+!<%=%k0LCV$K0\F0$9$k(B =====
+"===== 前回終了したカーソル位置に移動する =====
 if has("autocmd")
 	autocmd BufReadPost *
 	\ if line("'\"") > 0 && line ("'\"") <= line("$") |
