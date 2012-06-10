@@ -1,6 +1,6 @@
 :set enc=utf-8
 :set fenc=utf-8
-:set fencs=iso-2022-jp,enc-jp,cp932
+":set fencs=iso-2022-jp,enc-jp,cp932
 :set number
 :set ts=4 sw=4 sts=0
 
