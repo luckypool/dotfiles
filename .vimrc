@@ -7,6 +7,9 @@
 set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
+"============== for Bundle  ==================== 
+" do setup like bellow
+" $ git clone git://github.com/Shougo/neobundle.vim.git ~/.vim/bundle/neobundle.vim
 
 set nocompatible
 filetype off
