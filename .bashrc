@@ -7,7 +7,15 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 export PATH=$PATH:/usr/local/sbin
 export PATH=/Users/luckypool/local/bin:$PATH
 
+# perlbrew
+source ~/.perlbrew/etc/bashrc
+
 # TeX
 export PATH=$PATH:/Applications/UpTeX.app/teTeX/bin
 
-source ~/.perlbrew/etc/bashrc
+# MAMP
+export PATH=/Applications/MAMP/Library/bin:$PATH
+
+# CPANM
+alias cpanm-outdated='cpan-outdated | cpanm'
+

@@ -1,33 +1,33 @@
 :set enc=utf-8
 :set fenc=utf-8
-:set fencs=iso-2022-jp,enc-jp,cp932
+":set fencs=iso-2022-jp,enc-jp,cp932
 :set number
 :set ts=4 sw=4 sts=0
 
 set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
-"============== for Bundle  ==================== 
-" do setup like bellow
-" $ git clone http://github.com/gmarik/vundle.git ~/.vim/vundle.git
 
 set nocompatible
 filetype off
-set rtp+=~/.vim/vundle.git/
-call vundle#rc()
+
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+  call neobundle#rc(expand('~/.vim/bundle/'))
+endif
+
 " original repos on github 
-Bundle 'Lokaltog/vim-powerline'
+NeoBundle 'Lokaltog/vim-powerline'
 " Bundle 'Shougo/neocomplcache' 
 " vim-scripts repos 
-Bundle 'neocomplcache'
-Bundle 'ZenCoding.vim' 
-Bundle 'yanktmp.vim'
+NeoBundle 'neocomplcache'
+NeoBundle 'ZenCoding.vim' 
+NeoBundle 'yanktmp.vim'
 " vim-scripts repos (colorscheme)
-"Bundle 'molokai'
-Bundle 'Color-Sampler-Pack'
-Bundle 'ScrollColors'
+NeoBundle 'Color-Sampler-Pack'
+NeoBundle 'ScrollColors'
 " non github repos 
-Bundle 'git://git.wincent.com/command-t.git' 
+NeoBundle 'git://git.wincent.com/command-t.git' 
 filetype plugin indent on
 
 "============== for vim-powerline ============= 
@@ -51,7 +51,7 @@ map <silent><F2> :PREVCOLOR<cr>
 
 "============== display setting ==============
 if &term =~ "xterm-256color" || "screen-256color"
-	" 256$B?'(B
+	" 256色
 	set t_Co=256
 	set t_Sf=[3%dm
 	set t_Sb=[4%dm
@@ -64,7 +64,7 @@ map <silent> sy :call YanktmpYank()<CR>
 map <silent> sp :call YanktmpPaste_p()<CR> 
 map <silent> sP :call YanktmpPaste_P()<CR> 
 
-"===== $BA02s=*N;$7$?%+!<%=%k0LCV$K0\F0$9$k(B =====
+"===== 前回終了したカーソル位置に移動する =====
 if has("autocmd")
 	autocmd BufReadPost *
 	\ if line("'\"") > 0 && line ("'\"") <= line("$") |

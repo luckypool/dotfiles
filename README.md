@@ -1,4 +1,5 @@
 README
+====
 
 1) Making symbolic link of dotfile to your home directory
 
