@@ -4,6 +4,8 @@
 :set number
 :set ts=4 sw=4 sts=0
 
+set laststatus=2
+
 set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
@@ -19,18 +21,14 @@ if has('vim_starting')
   call neobundle#rc(expand('~/.vim/bundle/'))
 endif
 
-" original repos on github 
 NeoBundle 'Lokaltog/vim-powerline'
-" Bundle 'Shougo/neocomplcache' 
-" vim-scripts repos 
 NeoBundle 'neocomplcache'
 NeoBundle 'ZenCoding.vim' 
 NeoBundle 'yanktmp.vim'
-" vim-scripts repos (colorscheme)
 NeoBundle 'Color-Sampler-Pack'
 NeoBundle 'ScrollColors'
-" non github repos 
 NeoBundle 'git://git.wincent.com/command-t.git' 
+NeoBundle 'TwitVim'
 filetype plugin indent on
 
 "============== for vim-powerline ============= 
@@ -53,12 +51,6 @@ map <silent><F3> :NEXTCOLOR<cr>
 map <silent><F2> :PREVCOLOR<cr>
 
 "============== display setting ==============
-if &term =~ "xterm-256color" || "screen-256color"
-	" 256色
-	set t_Co=256
-	set t_Sf=[3%dm
-	set t_Sb=[4%dm
-endif
 syntax enable
 colorscheme wombat256
 
