@@ -1,39 +1,57 @@
-:set enc=utf-8
-:set fenc=utf-8
-":set fencs=iso-2022-jp,enc-jp,cp932
-:set number
-:set ts=4 sw=4 sts=0
-
+set enc=utf-8
+"set fencs=utf-8,iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,ucs-bom,euc-jp,eucjp-ms,cp932
+set fenc=utf-8
+set fileformat=unix
+set number
+set ts=4 sw=4 sts=0
+set expandtab
+set number
+set bs=indent,eol,start
+set laststatus=2
+set showmode
 set hlsearch
+set lcs=tab:>.,trail:_
+set list
+set backup
+set directory=$HOME/.vim-swp
+set backupdir=$HOME/.vim-backup
+
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 
+"============= for jump2pm
+noremap ff :call Jump2pm('e')<ENTER>
+noremap fd :call Jump2pm('sp')<ENTER>
+
+"============= for syntastic 
+" let $PERL5LIB='./lib:./t:./t/inc:'.expand('$PERL5LIB')
+
+
+"============== for perlomni.vim =================== 
+inoremap <C-p> <C-x><C-o>
 
 "============== for Bundle  ==================== 
 " do setup like bellow
-" $ git clone http://github.com/gmarik/vundle.git ~/.vim/vundle.git
+" $ git clone git://github.com/Shougo/neobundle.vim.git ~/.vim/bundle/neobundle.vim
 
 set nocompatible
 filetype off
-
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
   call neobundle#rc(expand('~/.vim/bundle/'))
 endif
-
-" original repos on github 
-" Bundle 'Shougo/neocomplcache' 
-" vim-scripts repos 
+NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'neocomplcache'
-NeoBundle 'ZenCoding.vim' 
+NeoBundle 'ZenCoding.vim'
 NeoBundle 'yanktmp.vim'
-" vim-scripts repos (colorscheme)
 NeoBundle 'Color-Sampler-Pack'
-NeoBundle 'ScrollColors'
-" non github repos 
-NeoBundle 'git://git.wincent.com/command-t.git' 
+NeoBundle 'Command-T'
+NeoBundle 'Align'
+" NeoBundle 'scrooloose/syntastic'
+NeoBundle 'nakatakeshi/jump2pm.vim.git'
+NeoBundle 'tpope/vim-pathogen'
+NeoBundle 'mattn/zencoding-vim'
 filetype plugin indent on
-
 
 "============== for neocomplcache ============= 
 let g:neocomplcache_enable_at_startup=1
@@ -51,17 +69,13 @@ inoremap <expr><C-e> neocomplcache#cancel_popup()
 syntax on
 colorscheme wombat256
 
-
-"============== for scrollcolors ============= 
-map <silent><F3> :NEXTCOLOR<cr>
-map <silent><F2> :PREVCOLOR<cr>
-
-
 "============== for yanktmp.vimrc ============
 map <silent> sy :call YanktmpYank()<CR> 
 map <silent> sp :call YanktmpPaste_p()<CR> 
 map <silent> sP :call YanktmpPaste_P()<CR> 
 
+"============= for pathogen
+call pathogen#infect() 
 
 "===== 前回終了したカーソル位置に移動する =====
 if has("autocmd")
@@ -69,5 +83,62 @@ if has("autocmd")
 	\ if line("'\"") > 0 && line ("'\"") <= line("$") |
 	\   exe "normal! g'\"" |
 	\ endif
+endif
+
+" 文字コードの自動認識
+if &encoding !=# 'utf-8'
+  set encoding=japan
+  set fileencoding=japan
+endif
+if has('iconv')
+  let s:enc_euc = 'euc-jp'
+  let s:enc_jis = 'iso-2022-jp'
+  " iconvがeucJP-msに対応しているかをチェック
+  if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
+    let s:enc_euc = 'eucjp-ms'
+    let s:enc_jis = 'iso-2022-jp-3'
+  " iconvがJISX0213に対応しているかをチェック
+  elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
+    let s:enc_euc = 'euc-jisx0213'
+    let s:enc_jis = 'iso-2022-jp-3'
+  endif
+  " fileencodingsを構築
+  if &encoding ==# 'utf-8'
+    let s:fileencodings_default = &fileencodings
+    let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
+    let &fileencodings = &fileencodings .','. s:fileencodings_default
+    unlet s:fileencodings_default
+  else
+    let &fileencodings = &fileencodings .','. s:enc_jis
+    set fileencodings+=utf-8,ucs-2le,ucs-2
+    if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
+      set fileencodings+=cp932
+      set fileencodings-=euc-jp
+      set fileencodings-=euc-jisx0213
+      set fileencodings-=eucjp-ms
+      let &encoding = s:enc_euc
+      let &fileencoding = s:enc_euc
+    else
+      let &fileencodings = &fileencodings .','. s:enc_euc
+    endif
+  endif
+  " 定数を処分
+  unlet s:enc_euc
+  unlet s:enc_jis
+endif
+" 日本語を含まない場合は fileencoding に encoding を使うようにする
+if has('autocmd')
+  function! AU_ReCheck_FENC()
+    if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
+      let &fileencoding=&encoding
+    endif
+  endfunction
+  autocmd BufReadPost * call AU_ReCheck_FENC()
+endif
+" 改行コードの自動認識
+set fileformats=unix,dos,mac
+" □とか○の文字があってもカーソル位置がずれないようにする
+if exists('&ambiwidth')
+  set ambiwidth=double
 endif
 

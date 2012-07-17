@@ -6,11 +6,11 @@ README
 	run shell script
 	./install.sh
 
-2) install vundle
+2) install neobundle
  
-	git clone http://github.com/gmarik/vundle.git ~/.vim/vundle.git
+    git clone git://github.com/Shougo/neobundle.vim.git ~/.vim/bundle/neobundle.vim
 
-	then, run vim, and do ':BundleInstall'
+	then, run vim, and do ':NeoBundleInstall'
 
 
 
