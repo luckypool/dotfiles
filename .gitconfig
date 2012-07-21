@@ -7,5 +7,6 @@
 	co = checkout
 	st = status
 	ci = commit
+	br = branch
 [core]
 	editor = vim

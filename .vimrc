@@ -29,6 +29,7 @@ NeoBundle 'Color-Sampler-Pack'
 NeoBundle 'ScrollColors'
 NeoBundle 'git://git.wincent.com/command-t.git' 
 NeoBundle 'TwitVim'
+NeoBundle 'Align'
 filetype plugin indent on
 
 "============== for vim-powerline ============= 
