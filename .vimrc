@@ -30,7 +30,11 @@ NeoBundle 'ScrollColors'
 NeoBundle 'git://git.wincent.com/command-t.git' 
 NeoBundle 'TwitVim'
 NeoBundle 'Align'
+NeoBundle 'scrooloose/nerdtree.git'
 filetype plugin indent on
+
+"============= for nerdtree ==================
+nmap <Leader>n :NERDTreeToggle<CR>
 
 "============== for vim-powerline ============= 
 set laststatus=2
