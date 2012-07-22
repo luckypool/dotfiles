@@ -53,12 +53,6 @@ map <silent><F3> :NEXTCOLOR<cr>
 map <silent><F2> :PREVCOLOR<cr>
 
 "============== display setting ==============
-if &term =~ "xterm-256color" || "screen-256color"
-	" 256色
-	set t_Co=256
-	set t_Sf=[3%dm
-	set t_Sb=[4%dm
-endif
 syntax enable
 colorscheme wombat256
 
