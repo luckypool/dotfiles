@@ -34,7 +34,7 @@ NeoBundle 'scrooloose/nerdtree.git'
 filetype plugin indent on
 
 "============= for nerdtree ==================
-nmap <Leader>n :NERDTreeToggle<CR>
+nmap <silent><F4> :NERDTreeToggle<CR>
 
 "============== for vim-powerline ============= 
 set laststatus=2
