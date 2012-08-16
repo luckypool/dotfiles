@@ -2,8 +2,8 @@
 " base settings
 " ------------------------------------------------------
 set enc=utf-8
-"set fencs=utf-8,iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,ucs-bom,euc-jp,eucjp-ms,cp932
-set fenc=utf-8
+set fencs=utf-8,iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,ucs-bom,euc-jp,eucjp-ms,cp932
+"set fenc=utf-8
 set fileformat=unix
 set number
 set ts=4 sw=4 sts=0
@@ -23,6 +23,24 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 
 "=======================================================
+" タブ操作のキーマッピング
+" ------------------------------------------------------
+nnoremap [TABCMD]  <nop>
+nmap     <c-t> [TABCMD]
+
+nnoremap <silent> [TABCMD]f :<c-u>tabfirst<cr>
+nnoremap <silent> [TABCMD]l :<c-u>tablast<cr>
+nnoremap <silent> [TABCMD]j :<c-u>tabnext<cr>
+nnoremap <silent> [TABCMD]N :<c-u>tabNext<cr>
+nnoremap <silent> [TABCMD]k :<c-u>tabprevious<cr>
+nnoremap <silent> [TABCMD]e :<c-u>tabedit<cr>
+nnoremap <silent> [TABCMD]c :<c-u>tabclose<cr>
+nnoremap <silent> [TABCMD]o :<c-u>tabonly<cr>
+nnoremap <silent> [TABCMD]s :<c-u>tabs<cr>
+"=======================================================
+
+
+"=======================================================
 " NeoBundle
 " ------------------------------------------------------
 " do setup like bellow
@@ -31,7 +49,7 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 set nocompatible
 filetype off
 if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    se runtimepath+=~/.vim/bundle/neobundle.vim/
     call neobundle#rc(expand('~/.vim/bundle/'))
 endif
 NeoBundle 'neocomplcache'
@@ -141,8 +159,12 @@ if has("autocmd")
                 \   exe "normal! g'\"" |
                 \ endif
 endif
+"=======================================================
 
+
+"=======================================================
 " 文字コードの自動認識
+" ------------------------------------------------------
 if &encoding !=# 'utf-8'
     set encoding=japan
     set fileencoding=japan
