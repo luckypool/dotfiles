@@ -3,7 +3,7 @@
 " ------------------------------------------------------
 set enc=utf-8
 set fencs=utf-8,iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,ucs-bom,euc-jp,eucjp-ms,cp932
-"set fenc=utf-8
+set fenc=utf-8
 set fileformat=unix
 set number
 set ts=4 sw=4 sts=0
@@ -19,15 +19,11 @@ set backup
 set directory=$HOME/.vim-swp
 set backupdir=$HOME/.vim-backup
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
-"=======================================================
-
-
-"=======================================================
+" ------------------------------------------------------
 " タブ操作のキーマッピング
 " ------------------------------------------------------
 nnoremap [TABCMD]  <nop>
 nmap     <c-t> [TABCMD]
-
 nnoremap <silent> [TABCMD]f :<c-u>tabfirst<cr>
 nnoremap <silent> [TABCMD]l :<c-u>tablast<cr>
 nnoremap <silent> [TABCMD]j :<c-u>tabnext<cr>
@@ -43,7 +39,7 @@ nnoremap <silent> [TABCMD]s :<c-u>tabs<cr>
 "=======================================================
 " NeoBundle
 " ------------------------------------------------------
-" do setup like bellow
+" do setup like bellow...
 " $ git clone git://github.com/Shougo/neobundle.vim.git ~/.vim/bundle/neobundle.vim
 " ------------------------------------------------------
 set nocompatible
@@ -80,13 +76,13 @@ omap <silent> <C-e>      :NERDTreeToggle<CR>
 imap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
 cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
 autocmd vimenter * if !argc() | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowHidden=1
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeDirArrows=0
-let g:NERDTreeMouseMode=2
 "=======================================================
+
 
 "=======================================================
 " jump2pm
