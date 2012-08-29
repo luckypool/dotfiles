@@ -48,8 +48,6 @@ if has('vim_starting')
     se runtimepath+=~/.vim/bundle/neobundle.vim/
     call neobundle#rc(expand('~/.vim/bundle/'))
 endif
-NeoBundle 'neocomplcache'
-NeoBundle 'ZenCoding.vim'
 NeoBundle 'yanktmp.vim'
 NeoBundle 'Color-Sampler-Pack'
 NeoBundle 'Command-T'
@@ -60,6 +58,8 @@ NeoBundle 'nakatakeshi/jump2pm.vim'
 NeoBundle 'tpope/vim-pathogen'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neocomplcache-snippets-complete'
 filetype plugin indent on
 "=======================================================
 
@@ -112,6 +112,39 @@ inoremap <C-p> <C-x><C-o>
 " ------------------------------------------------------
 let g:neocomplcache_enable_at_startup=1
 let g:neocomplcache_enable_smart_case=1
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+ " Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_ctags_arguments_list = {
+  \ 'perl' : '-R -h ".pm"'
+  \ }
+" Snippet
+" https://raw.github.com/gist/2146105/464170751812997fc3b655cb547e2b5a929e9eb6/perl.snip
+let g:neocomplcache_snippets_dir = "~/.vim/snippets"
+" Dict
+" https://raw.github.com/gist/2146105/464170751812997fc3b655cb547e2b5a929e9eb6/perl.snip
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default'    : '',
+    \ 'perl'       : $HOME . '/.vim/dict/perl.dict'
+    \ }
+" Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+  let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+" for snippets
+imap <expr><C-k> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
+smap <C-k> <Plug>(neocomplcache_snippets_expand)
 "" <TAB>: completion.
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 "" <C-h>, <BS>: close popup and delete backword char.
