@@ -1,11 +1,12 @@
 [user]
-	name = Yuta YOSHIIKE
-	email = luckypool314@gmail.com
+    name = Yuta YOSHIIKE
+    email = luckypool314@gmail.com
 [color]
-	ui = auto
+    ui = auto
 [alias]
-	co = checkout
-	st = status
-	ci = commit
+    co = checkout
+    st = status
+    ci = commit
+    br = branch
 [core]
-	editor = vim
+    editor = vim
