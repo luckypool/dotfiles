@@ -110,8 +110,12 @@ inoremap <C-p> <C-x><C-o>
 "=======================================================
 " neocomplcache 
 " ------------------------------------------------------
-let g:neocomplcache_enable_at_startup=1
-let g:neocomplcache_enable_smart_case=1
+" do setup like bellow...
+" (1) clone snippet files
+"     $ git clone git@gist.github.com:afecd4b6cb37eb24e4c4.git ~/.vim/snippets
+" (2) clone dict files
+"     $ git clone git@gist.github.com:5c498d514369dcac962b.git ~/.vim/dict
+" ------------------------------------------------------
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplcache.
@@ -129,10 +133,8 @@ let g:neocomplcache_ctags_arguments_list = {
   \ 'perl' : '-R -h ".pm"'
   \ }
 " Snippet
-" https://raw.github.com/gist/2146105/464170751812997fc3b655cb547e2b5a929e9eb6/perl.snip
 let g:neocomplcache_snippets_dir = "~/.vim/snippets"
 " Dict
-" https://raw.github.com/gist/2146105/464170751812997fc3b655cb547e2b5a929e9eb6/perl.snip
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default'    : '',
     \ 'perl'       : $HOME . '/.vim/dict/perl.dict'
