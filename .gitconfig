@@ -1,5 +1,5 @@
 [user]
-    name = Yuta YOSHIIKE
+    name = luckypool
     email = luckypool314@gmail.com
 [color]
     ui = auto
@@ -9,5 +9,6 @@
     st = status
     ci = commit
     br = branch
+    merge = merge --no-ff
 [core]
     editor = vim
