@@ -16,8 +16,8 @@ set hlsearch
 set lcs=tab:>.,trail:_
 set list
 set backup
-set directory=$HOME/.vim-swp
-set backupdir=$HOME/.vim-backup
+set directory=$HOME/.vim/swp/
+set backupdir=$HOME/.vim/backup/
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 " ------------------------------------------------------
 " タブ操作のキーマッピング
@@ -59,7 +59,7 @@ NeoBundle 'tpope/vim-pathogen'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neocomplcache-snippets-complete'
+NeoBundle 'Shougo/neosnippet'
 filetype plugin indent on
 "=======================================================
 
