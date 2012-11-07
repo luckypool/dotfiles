@@ -19,6 +19,9 @@ set backup
 set directory=$HOME/.vim-swp
 set backupdir=$HOME/.vim-backup
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
+"test code用 syntax
+au BufEnter *.t execute ":setlocal filetype=perl"
+
 " ------------------------------------------------------
 " タブ操作のキーマッピング
 " ------------------------------------------------------
@@ -59,7 +62,7 @@ NeoBundle 'tpope/vim-pathogen'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neocomplcache-snippets-complete'
+NeoBundle 'Shougo/neosnippet'
 filetype plugin indent on
 "=======================================================
 
@@ -89,6 +92,7 @@ let g:NERDTreeDirArrows=0
 " ------------------------------------------------------
 noremap ff :call Jump2pm('e')<ENTER>
 noremap fd :call Jump2pm('sp')<ENTER>
+noremap ft :call Jump2pm('tabe')<ENTER>
 "=======================================================
 
 
@@ -105,13 +109,9 @@ noremap fd :call Jump2pm('sp')<ENTER>
 inoremap <C-p> <C-x><C-o>
 "=======================================================
 
-
-
 "=======================================================
 " neocomplcache 
 " ------------------------------------------------------
-let g:neocomplcache_enable_at_startup=1
-let g:neocomplcache_enable_smart_case=1
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplcache.
