@@ -109,13 +109,13 @@ inoremap <C-p> <C-x><C-o>
 
 
 "=======================================================
-" neocomplcache 
-" ------------------------------------------------------
 " do setup like bellow...
 " (1) clone snippet files
 "     $ git clone git@gist.github.com:afecd4b6cb37eb24e4c4.git ~/.vim/snippets
 " (2) clone dict files
 "     $ git clone git@gist.github.com:5c498d514369dcac962b.git ~/.vim/dict
+" ------------------------------------------------------
+" neocomplcache
 " ------------------------------------------------------
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -133,8 +133,6 @@ let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_ctags_arguments_list = {
   \ 'perl' : '-R -h ".pm"'
   \ }
-" Snippet
-let g:neocomplcache_snippets_dir = "~/.vim/snippets"
 " Dict
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default'    : '',
@@ -145,16 +143,19 @@ if !exists('g:neocomplcache_keyword_patterns')
   let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-" for snippets
-imap <expr><C-k> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
-smap <C-k> <Plug>(neocomplcache_snippets_expand)
-"" <TAB>: completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-"" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup() . "\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<C-h>"
-inoremap <expr><C-y> neocomplcache#close_popup()
-inoremap <expr><C-e> neocomplcache#cancel_popup()
+" ------------------------------------------------------
+" neosnippet
+" ------------------------------------------------------
+"Plugin key-mappings.
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 "=======================================================
 
 
