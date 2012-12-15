@@ -49,7 +49,7 @@ if has('vim_starting')
     call neobundle#rc(expand('~/.vim/bundle/'))
 endif
 NeoBundle 'yanktmp.vim'
-NeoBundle 'Color-Sampler-Pack'
+NeoBundle 'Colour-Sampler-Pack'
 NeoBundle 'Command-T'
 NeoBundle 'Align'
 " NeoBundle 'scrooloose/syntastic'
