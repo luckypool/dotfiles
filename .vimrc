@@ -52,7 +52,6 @@ NeoBundle 'yanktmp.vim'
 NeoBundle 'Colour-Sampler-Pack'
 NeoBundle 'Command-T'
 NeoBundle 'Align'
-" NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'nakatakeshi/jump2pm.vim'
 NeoBundle 'tpope/vim-pathogen'
@@ -69,7 +68,6 @@ filetype plugin indent on
 " refered from:
 " http://blog.livedoor.jp/kumonopanya/archives/51048805.html
 " ------------------------------------------------------
-NeoBundle 'scrooloose/nerdtree.git'
 nmap <silent> <C-e>      :NERDTreeToggle<CR>
 vmap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
 omap <silent> <C-e>      :NERDTreeToggle<CR>
