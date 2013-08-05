@@ -15,6 +15,7 @@ set showmode
 set hlsearch
 set lcs=tab:>.,trail:_
 set list
+set mouse=a
 set backup
 set directory=$HOME/.vim/swp/
 set backupdir=$HOME/.vim/backup/
@@ -33,6 +34,11 @@ nnoremap <silent> [TABCMD]e :<c-u>tabedit<cr>
 nnoremap <silent> [TABCMD]c :<c-u>tabclose<cr>
 nnoremap <silent> [TABCMD]o :<c-u>tabonly<cr>
 nnoremap <silent> [TABCMD]s :<c-u>tabs<cr>
+" ------------------------------------------------------
+" perl用の設定
+" ------------------------------------------------------
+autocmd BufNewFile,BufRead *.psgi   set filetype=perl
+autocmd BufNewFile,BufRead *.t      set filetype=perl
 "=======================================================
 
 
@@ -48,10 +54,11 @@ if has('vim_starting')
     se runtimepath+=~/.vim/bundle/neobundle.vim/
     call neobundle#rc(expand('~/.vim/bundle/'))
 endif
-NeoBundle 'yanktmp.vim'
-NeoBundle 'Colour-Sampler-Pack'
-NeoBundle 'Command-T'
-NeoBundle 'Align'
+NeoBundle 'vim-scripts/yanktmp.vim'
+NeoBundle 'vim-scripts/Colour-Sampler-Pack'
+NeoBundle 'vim-scripts/Command-T'
+NeoBundle 'vim-scripts/Align'
+NeoBundle 'vim-scripts/hybrid.vim'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'nakatakeshi/jump2pm.vim'
 NeoBundle 'tpope/vim-pathogen'
@@ -160,7 +167,8 @@ endif
 " colorscheme
 " ------------------------------------------------------
 syntax on
-colorscheme wombat256
+" colorscheme wombat256
+colorscheme hybrid
 "=======================================================
 
 
