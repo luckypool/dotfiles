@@ -45,7 +45,7 @@ autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,exc
 " Perl
 " ------------------------------------------------------
 augroup filetypedetect
-    autocmd! BufNewFile,BufRead *.t setf perl
+    autocmd! BufNewFile,BufRead *.t    setf perl
     autocmd! BufNewFile,BufRead *.psgi setf perl
 augroup END
 "=======================================================
@@ -63,10 +63,10 @@ if has('vim_starting')
     se runtimepath+=~/.vim/bundle/neobundle.vim/
     call neobundle#rc(expand('~/.vim/bundle/'))
 endif
-NeoBundle 'yanktmp.vim'
-NeoBundle 'Colour-Sampler-Pack'
-NeoBundle 'Command-T'
-NeoBundle 'Align'
+NeoBundle 'vim-scripts/yanktmp.vim'
+NeoBundle 'vim-scripts/Colour-Sampler-Pack'
+NeoBundle 'vim-scripts/Command-T'
+NeoBundle 'vim-scripts/Align'
 NeoBundle 'vim-scripts/hybrid.vim'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'nakatakeshi/jump2pm.vim'
@@ -235,7 +235,7 @@ smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" 
 " colorscheme
 " ------------------------------------------------------
 syntax on
-"colorscheme wombat256
+" colorscheme wombat256
 colorscheme hybrid
 "=======================================================
 
