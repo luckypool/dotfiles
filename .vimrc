@@ -16,9 +16,12 @@ set hlsearch
 set lcs=tab:>.,trail:_
 set list
 set backup
+set mouse=a
 set directory=$HOME/.vim/swp/
 set backupdir=$HOME/.vim/backup/
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
+autocmd BufNewFile,BufRead *.psgi   set filetype=perl
+autocmd BufNewFile,BufRead *.t      set filetype=perl
 " ------------------------------------------------------
 " タブ操作のキーマッピング
 " ------------------------------------------------------
@@ -33,6 +36,18 @@ nnoremap <silent> [TABCMD]e :<c-u>tabedit<cr>
 nnoremap <silent> [TABCMD]c :<c-u>tabclose<cr>
 nnoremap <silent> [TABCMD]o :<c-u>tabonly<cr>
 nnoremap <silent> [TABCMD]s :<c-u>tabs<cr>
+" ------------------------------------------------------
+" Python
+" ------------------------------------------------------
+autocmd FileType python setl autoindent
+autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+" ------------------------------------------------------
+" Perl
+" ------------------------------------------------------
+augroup filetypedetect
+    autocmd! BufNewFile,BufRead *.t setf perl
+    autocmd! BufNewFile,BufRead *.psgi setf perl
+augroup END
 "=======================================================
 
 
@@ -52,7 +67,7 @@ NeoBundle 'yanktmp.vim'
 NeoBundle 'Colour-Sampler-Pack'
 NeoBundle 'Command-T'
 NeoBundle 'Align'
-" NeoBundle 'scrooloose/syntastic'
+NeoBundle 'vim-scripts/hybrid.vim'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'nakatakeshi/jump2pm.vim'
 NeoBundle 'tpope/vim-pathogen'
@@ -69,7 +84,6 @@ filetype plugin indent on
 " refered from:
 " http://blog.livedoor.jp/kumonopanya/archives/51048805.html
 " ------------------------------------------------------
-NeoBundle 'scrooloose/nerdtree.git'
 nmap <silent> <C-e>      :NERDTreeToggle<CR>
 vmap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
 omap <silent> <C-e>      :NERDTreeToggle<CR>
@@ -89,6 +103,8 @@ let g:NERDTreeDirArrows=0
 " ------------------------------------------------------
 noremap ff :call Jump2pm('e')<ENTER>
 noremap fd :call Jump2pm('sp')<ENTER>
+noremap ft :call Jump2pm('tabe')<ENTER>
+" let search_lib_dir = [ 'local/lib/perl5' ]
 "=======================================================
 
 
@@ -97,14 +113,6 @@ noremap fd :call Jump2pm('sp')<ENTER>
 " ------------------------------------------------------
 " let $PERL5LIB='./lib:./t:./t/inc:'.expand('$PERL5LIB')
 "=======================================================
-
-
-"=======================================================
-" perlomni.vim 
-" ------------------------------------------------------
-inoremap <C-p> <C-x><C-o>
-"=======================================================
-
 
 
 "=======================================================
@@ -120,28 +128,93 @@ inoremap <C-p> <C-x><C-o>
 let g:acp_enableAtStartup = 0
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
 " Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
- " Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
+
+" Enable heavy features.
 " Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_ctags_arguments_list = {
-  \ 'perl' : '-R -h ".pm"'
-  \ }
-" Dict
+"let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+"let g:neocomplcache_enable_underbar_completion = 1
+
+" Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default'    : '',
-    \ 'perl'       : $HOME . '/.vim/dict/perl.dict'
+    \ 'default'  : '',
+    \ 'perl'     : $HOME.'/.vim/dict/perl.dict'
     \ }
+"    \ 'vimshell' : $HOME.'/.vimshell_hist',
+"    \ 'scheme'   : $HOME.'/.gosh_completions'
+
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
-  let g:neocomplcache_keyword_patterns = {}
+    let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplcache#smart_close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
+
+" For cursor moving in insert mode(Not recommended)
+"inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
+"inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
+"inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
+"inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
+" Or set this.
+"let g:neocomplcache_enable_cursor_hold_i = 1
+" Or set this.
+"let g:neocomplcache_enable_insert_char_pre = 1
+
+" AutoComplPop like behavior.
+"let g:neocomplcache_enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplcache_enable_auto_select = 1
+"let g:neocomplcache_disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
 " ------------------------------------------------------
 " neosnippet
 " ------------------------------------------------------
@@ -151,10 +224,10 @@ smap <C-k> <Plug>(neosnippet_expand_or_jump)
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
+" " For snippet_complete marker.
+" if has('conceal')
+"   set conceallevel=2 concealcursor=i
+" endif
 "=======================================================
 
 
@@ -162,7 +235,8 @@ endif
 " colorscheme
 " ------------------------------------------------------
 syntax on
-colorscheme wombat256
+"colorscheme wombat256
+colorscheme hybrid
 "=======================================================
 
 
