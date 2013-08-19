@@ -5,7 +5,7 @@ set enc=utf-8
 set fencs=utf-8,iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,ucs-bom,euc-jp,eucjp-ms,cp932
 set fenc=utf-8
 set fileformat=unix
-set number
+set fileformats=unix,dos,mac
 set ts=4 sw=4 sts=0
 set expandtab
 set number
@@ -16,6 +16,7 @@ set hlsearch
 set lcs=tab:>.,trail:_
 set list
 set backup
+set mouse=a
 set directory=$HOME/.vim/swp/
 set backupdir=$HOME/.vim/backup/
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
@@ -33,6 +34,11 @@ nnoremap <silent> [TABCMD]e :<c-u>tabedit<cr>
 nnoremap <silent> [TABCMD]c :<c-u>tabclose<cr>
 nnoremap <silent> [TABCMD]o :<c-u>tabonly<cr>
 nnoremap <silent> [TABCMD]s :<c-u>tabs<cr>
+" ------------------------------------------------------
+" perl用の設定
+" ------------------------------------------------------
+autocmd BufNewFile,BufRead *.psgi   set filetype=perl
+autocmd BufNewFile,BufRead *.t      set filetype=perl
 "=======================================================
 
 
@@ -48,19 +54,44 @@ if has('vim_starting')
     se runtimepath+=~/.vim/bundle/neobundle.vim/
     call neobundle#rc(expand('~/.vim/bundle/'))
 endif
-NeoBundle 'yanktmp.vim'
-NeoBundle 'Color-Sampler-Pack'
-NeoBundle 'Command-T'
-NeoBundle 'Align'
+NeoBundle 'vim-scripts/yanktmp.vim'
+NeoBundle 'vim-scripts/Colour-Sampler-Pack'
+NeoBundle 'vim-scripts/Command-T'
+NeoBundle 'vim-scripts/Align'
+NeoBundle 'vim-scripts/hybrid.vim'
 " NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'nakatakeshi/jump2pm.vim'
 NeoBundle 'tpope/vim-pathogen'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'vim-perl/vim-perl'
+NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'rking/ag.vim'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
+NeoBundle 'mattn/habatobi-vim'
 filetype plugin indent on
+"=======================================================
+
+"=======================================================
+" unite
+" ------------------------------------------------------
+" insert modeで開始
+let g:unite_enable_start_insert=1
+" buffer 一覧
+noremap <c-o> :<c-u>Unite buffer -direction=botright <cr>
+" file 一覧
+noremap <c-i>  :<c-u>UniteWithBufferDir -buffer-name=files file-direction=botright <cr></cr></c-u></c-i></cr></c-u></c-o>
 "=======================================================
 
 
@@ -77,7 +108,7 @@ imap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
 cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
 autocmd vimenter * if !argc() | NERDTree | endif
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\.git$', '\~$']
 let g:NERDTreeShowHidden=1
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeDirArrows=0
@@ -163,7 +194,8 @@ endif
 " colorscheme
 " ------------------------------------------------------
 syntax on
-colorscheme wombat256
+colorscheme hybrid
+"colorscheme wombat256
 "=======================================================
 
 
@@ -247,11 +279,23 @@ if has('autocmd')
     endfunction
     autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
-" 改行コードの自動認識
-set fileformats=unix,dos,mac
-" □とか○の文字があってもカーソル位置がずれないようにする
 if exists('&ambiwidth')
     set ambiwidth=double
 endif
 "=======================================================
+
+
+"=======================================================
+" ag.vim
+" ------------------------------------------------------
+let g:agprg="-H --nocolor --nogroup --column"
+"=======================================================
+
+"=======================================================
+" vim-markdown
+" ------------------------------------------------------
+let g:vim_markdown_folding_disabled=1
+"=======================================================
+
+
 
