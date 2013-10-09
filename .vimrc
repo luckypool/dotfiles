@@ -5,7 +5,7 @@ set enc=utf-8
 set fencs=utf-8,iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,ucs-bom,euc-jp,eucjp-ms,cp932
 set fenc=utf-8
 set fileformat=unix
-set number
+set fileformats=unix,dos,mac
 set ts=4 sw=4 sts=0
 set expandtab
 set number
@@ -75,9 +75,32 @@ NeoBundle 'nakatakeshi/jump2pm.vim'
 NeoBundle 'tpope/vim-pathogen'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'vim-perl/vim-perl'
+NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'rking/ag.vim'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin'  : 'make -f make_cygwin.mak',
+      \     'mac'     : 'make -f make_mac.mak',
+      \     'unix'    : 'make -f make_unix.mak',
+      \    },
+      \ }
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 filetype plugin indent on
+"=======================================================
+
+"=======================================================
+" unite
+" ------------------------------------------------------
+" insert modeで開始
+let g:unite_enable_start_insert=1
+" buffer 一覧
+noremap <c-o> :<c-u>Unite buffer -direction=botright <cr>
+" file 一覧
+noremap <c-i>  :<c-u>UniteWithBufferDir -buffer-name=files file-direction=botright <cr></cr></c-u></c-i></cr></c-u></c-o>
 "=======================================================
 
 
@@ -92,7 +115,7 @@ omap <silent> <C-e>      :NERDTreeToggle<CR>
 imap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
 cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
 autocmd vimenter * if !argc() | NERDTree | endif
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\.git$', '\~$']
 let g:NERDTreeShowHidden=1
 let g:NERDTreeMinimalUI=1
@@ -106,7 +129,9 @@ let g:NERDTreeDirArrows=0
 noremap ff :call Jump2pm('e')<ENTER>
 noremap fd :call Jump2pm('sp')<ENTER>
 noremap ft :call Jump2pm('tabe')<ENTER>
-" let search_lib_dir = [ 'local/lib/perl5' ]
+if isdirectory('local/lib/perl5')
+    setlocal path+=local/lib/perl5
+endif
 "=======================================================
 
 
@@ -163,17 +188,15 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " Enable heavy features.
 " Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-"let g:neocomplcache_enable_underbar_completion = 1
-
-" Define dictionary.
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_ctags_arguments_list = {
+  \ 'perl' : '-R -h ".pm"'
+  \ }
+" Dict
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default'  : '',
     \ 'perl'     : $HOME.'/.vim/dict/perl.dict'
     \ }
-"    \ 'vimshell' : $HOME.'/.vimshell_hist',
-"    \ 'scheme'   : $HOME.'/.gosh_completions'
 
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
@@ -202,26 +225,10 @@ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 " Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
-
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplcache_enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplcache_enable_insert_char_pre = 1
+inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
 
 " AutoComplPop like behavior.
 "let g:neocomplcache_enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -235,7 +242,7 @@ if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_omni_patterns.c   = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 " For perlomni.vim setting.
@@ -251,10 +258,14 @@ smap <C-k> <Plug>(neosnippet_expand_or_jump)
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-" " For snippet_complete marker.
-" if has('conceal')
-"   set conceallevel=2 concealcursor=i
-" endif
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 "=======================================================
 
 
@@ -262,8 +273,11 @@ smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" 
 " colorscheme
 " ------------------------------------------------------
 syntax on
+set background=dark
 " colorscheme wombat256
 colorscheme hybrid
+" 半透明にする
+highlight Normal ctermbg=none
 "=======================================================
 
 
@@ -347,11 +361,23 @@ if has('autocmd')
     endfunction
     autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
-" 改行コードの自動認識
-set fileformats=unix,dos,mac
-" □とか○の文字があってもカーソル位置がずれないようにする
 if exists('&ambiwidth')
     set ambiwidth=double
 endif
 "=======================================================
+
+
+"=======================================================
+" ag.vim
+" ------------------------------------------------------
+let g:agprg="-H --nocolor --nogroup --column"
+"=======================================================
+
+"=======================================================
+" vim-markdown
+" ------------------------------------------------------
+let g:vim_markdown_folding_disabled=1
+"=======================================================
+
+
 
