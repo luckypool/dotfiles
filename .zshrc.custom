@@ -28,9 +28,18 @@ alias cpanm-outdated='cpan-outdated | cpanm'
 
 # plenv
 if [ -d ${HOME}/.plenv  ] ; then
-PATH=${HOME}/.plenv/bin:${HOME}/.plenv/shims:${PATH}
-  export PATH
-    eval "$(plenv init -)"
+  export PATH=${HOME}/.plenv/bin:${HOME}/.plenv/shims:${PATH}
+  eval "$(plenv init -)"
+fi
+
+# rbenv
+if [ -d ${HOME}/.rbenv  ] ; then
+  export PATH=${HOME}/.rbenv/bin:${PATH}
+  eval "$(rbenv init -)"
+fi
+
+if [ -d ${HOME}/.nodebrew  ] ; then
+    export PATH=${HOME}/.nodebrew/current/bin:${PATH}
 fi
 
 # pythonz
