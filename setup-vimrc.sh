@@ -9,6 +9,10 @@ for dir in $DIRS; do
     mkdir "$HOME/$dir"
 done
 
+mkdir -p ~/.vim/autoload ~/.vim/bundle; \
+    curl -Sso ~/.vim/autoload/pathogen.vim \
+        https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+
 git clone https://github.com/Shougo/neobundle.vim.git "$HOME/.vim/bundle/neobundle.vim"
 git clone https://gist.github.com/afecd4b6cb37eb24e4c4.git "$HOME/.vim/snippets"
 git clone https://gist.github.com/5c498d514369dcac962b.git "$HOME/.vim/dict"
