@@ -12,11 +12,11 @@ alias ls='ls -G'
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
 
-# TMUX
-if which tmux 2>&1 >/dev/null; then
-    #if not inside a tmux session, and if no session is started, start a new session
-    test -z "$TMUX" && (tmux attach || tmux new-session)
-fi
+# # TMUX
+# if which tmux 2>&1 >/dev/null; then
+#     #if not inside a tmux session, and if no session is started, start a new session
+#     test -z "$TMUX" && (tmux attach || tmux new-session)
+# fi
 
 ## PATH
 #
@@ -34,7 +34,7 @@ fi
 
 # rbenv
 if [ -d ${HOME}/.rbenv  ] ; then
-  export PATH=${HOME}/.rbenv/bin:${PATH}
+  export PATH=${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}
   eval "$(rbenv init -)"
 fi
 
