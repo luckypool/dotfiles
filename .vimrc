@@ -22,6 +22,7 @@ set backupdir=$HOME/.vim/backup/
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 autocmd BufNewFile,BufRead *.psgi   set filetype=perl
 autocmd BufNewFile,BufRead *.t      set filetype=perl
+autocmd BufRead /tmp/crontab.* :set nobackup nowritebackup
 " ------------------------------------------------------
 " タブ操作のキーマッピング
 " ------------------------------------------------------
@@ -73,7 +74,7 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'nakatakeshi/jump2pm.vim'
 NeoBundle 'tpope/vim-pathogen'
-NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'mattn/emmet-vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'vim-perl/vim-perl'
 NeoBundle 'plasticboy/vim-markdown'
