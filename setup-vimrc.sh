@@ -15,7 +15,7 @@ git clone https://gist.github.com/5c498d514369dcac962b.git "$HOME/.vim/dict"
 
 vim \
     -N \
-    -u ~/.vimrc \
+    -u $HOME/.vimrc \
     -c "try | NeoBundleUpdate! $* | finally | qall! | endtry" \
     -U NONE \
     -i NONE \
