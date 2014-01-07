@@ -67,7 +67,7 @@ augroup END
 set nocompatible
 filetype off
 if has('vim_starting')
-    se runtimepath+=~/.vim/bundle/neobundle.vim/
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
     call neobundle#rc(expand('~/.vim/bundle/'))
 endif
 NeoBundle 'vim-scripts/yanktmp.vim'
