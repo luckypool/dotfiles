@@ -110,17 +110,19 @@ noremap <c-i>  :<c-u>UniteWithBufferDir -buffer-name=files file-direction=botri
 " refered from:
 " http://blog.livedoor.jp/kumonopanya/archives/51048805.html
 " ------------------------------------------------------
-nmap <silent> <C-e>      :NERDTreeToggle<CR>
-vmap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
-omap <silent> <C-e>      :NERDTreeToggle<CR>
-imap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
-cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
-autocmd vimenter * if !argc() | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\.git$', '\~$']
-let g:NERDTreeShowHidden=1
-let g:NERDTreeMinimalUI=1
-let g:NERDTreeDirArrows=0
+if has('NERDTreeToggle')
+    nmap <silent> <C-e>      :NERDTreeToggle<CR>
+    vmap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
+    omap <silent> <C-e>      :NERDTreeToggle<CR>
+    imap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
+    cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
+    autocmd vimenter * if !argc() | NERDTree | endif
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+    let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\.git$', '\~$']
+    let g:NERDTreeShowHidden=1
+    let g:NERDTreeMinimalUI=1
+    let g:NERDTreeDirArrows=0
+endif
 "=======================================================
 
 
@@ -276,7 +278,9 @@ endif
 syntax on
 set background=dark
 " colorscheme wombat256
-colorscheme hybrid
+if has('hybrid')
+    colorscheme hybrid
+endif
 " 半透明にする
 highlight Normal ctermbg=none
 "=======================================================
@@ -294,7 +298,9 @@ map <silent> sP :call YanktmpPaste_P()<CR>
 "=======================================================
 " pathogen
 " ------------------------------------------------------
-call pathogen#infect() 
+if has('pathogen')
+    call pathogen#infect()
+endif
 "=======================================================
 
 
@@ -379,6 +385,4 @@ let g:agprg="-H --nocolor --nogroup --column"
 " ------------------------------------------------------
 let g:vim_markdown_folding_disabled=1
 "=======================================================
-
-
 
