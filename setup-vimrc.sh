@@ -1,8 +1,5 @@
 #!/bin/bash
 
-GIT='sudo -u vagrant git'
-VIM='sudo -u vagrant vim'
-
 DIRS=".vim .vim/backup .vim/swp .vim/snippets .vim/dict"
 
 for dir in $DIRS; do
@@ -12,11 +9,11 @@ for dir in $DIRS; do
     mkdir "$HOME/$dir"
 done
 
-$GIT clone https://github.com/Shougo/neobundle.vim.git "$HOME/.vim/bundle/neobundle.vim"
-$GIT clone https://gist.github.com/afecd4b6cb37eb24e4c4.git "$HOME/.vim/snippets"
-$GIT clone https://gist.github.com/5c498d514369dcac962b.git "$HOME/.vim/dict"
+git clone https://github.com/Shougo/neobundle.vim.git "$HOME/.vim/bundle/neobundle.vim"
+git clone https://gist.github.com/afecd4b6cb37eb24e4c4.git "$HOME/.vim/snippets"
+git clone https://gist.github.com/5c498d514369dcac962b.git "$HOME/.vim/dict"
 
-$VIM \
+vim \
     -N \
     -u ~/.vimrc \
     -c "try | NeoBundleUpdate! $* | finally | qall! | endtry" \
