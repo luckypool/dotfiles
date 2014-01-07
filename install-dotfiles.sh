@@ -8,4 +8,3 @@ do
         ln -Fisv "$PWD/$dotfiles" $HOME
     fi
 done
-
