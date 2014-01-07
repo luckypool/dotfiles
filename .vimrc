@@ -17,7 +17,13 @@ set lcs=tab:>.,trail:_
 set list
 set backup
 set mouse=a
+if !isdirectory($HOME.'/.vim/swp')
+    call mkdir($HOME.'/.vim/swp', 'p')
+endif
 set directory=$HOME/.vim/swp/
+if !isdirectory($HOME.'/.vim/backup')
+    call mkdir($HOME.'/.vim/backup', 'p')
+endif
 set backupdir=$HOME/.vim/backup/
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 autocmd BufNewFile,BufRead *.psgi   set filetype=perl
