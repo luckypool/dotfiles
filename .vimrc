@@ -20,9 +20,7 @@ set mouse=a
 set directory=$HOME/.vim/swp/
 set backupdir=$HOME/.vim/backup/
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
-autocmd BufNewFile,BufRead *.psgi   set filetype=perl
-autocmd BufNewFile,BufRead *.t      set filetype=perl
-autocmd BufRead /tmp/crontab.* :set nobackup nowritebackup
+set nocompatible
 " ------------------------------------------------------
 " タブ操作のキーマッピング
 " ------------------------------------------------------
@@ -38,17 +36,11 @@ nnoremap <silent> [TABCMD]c :<c-u>tabclose<cr>
 nnoremap <silent> [TABCMD]o :<c-u>tabonly<cr>
 nnoremap <silent> [TABCMD]s :<c-u>tabs<cr>
 " ------------------------------------------------------
-" Python
+" filetype
+" Ref.: http://d.hatena.ne.jp/wiredool/20120618/1340019962
 " ------------------------------------------------------
-autocmd FileType python setl autoindent
-autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-" ------------------------------------------------------
-" Perl
-" ------------------------------------------------------
-augroup filetypedetect
-    autocmd! BufNewFile,BufRead *.t    setf perl
-    autocmd! BufNewFile,BufRead *.psgi setf perl
-augroup END
+filetype off
+filetype plugin indent off
 "=======================================================
 
 
@@ -58,8 +50,6 @@ augroup END
 " do setup like bellow...
 " $ git clone git://github.com/Shougo/neobundle.vim.git ~/.vim/bundle/neobundle.vim
 " ------------------------------------------------------
-set nocompatible
-filetype off
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
     call neobundle#rc(expand('~/.vim/bundle/'))
@@ -381,5 +371,22 @@ let g:agprg="-H --nocolor --nogroup --column"
 " vim-markdown
 " ------------------------------------------------------
 let g:vim_markdown_folding_disabled=1
+"=======================================================
+
+"=======================================================
+" ファイルタイプごとの個別設定
+" Ref.: http://d.hatena.ne.jp/wiredool/20120618/1340019962
+" ------------------------------------------------------
+filetype plugin indent on
+" ------------------------------------------------------
+augroup filetypedetect
+    " crontab
+    autocmd! BufRead /tmp/crontab.* :set nobackup nowritebackup
+    " Perl
+    autocmd! BufNewFile,BufRead *.t    setf perl
+    autocmd! BufNewFile,BufRead *.psgi setf perl
+    " Ruby
+    autocmd! BufNewFile,BufRead *.rb   setl ts=2 sw=2 sts=0
+augroup END
 "=======================================================
 
