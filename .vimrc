@@ -6,8 +6,7 @@ set fencs=utf-8,iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,ucs-bom,euc-jp,euc
 set fenc=utf-8
 set fileformat=unix
 set fileformats=unix,dos,mac
-set ts=4 sw=4 sts=0
-set expandtab
+set sw=2 sts=2 ts=2 et
 set number
 set bs=indent,eol,start
 set laststatus=2
@@ -51,8 +50,8 @@ filetype plugin indent off
 " $ git clone git://github.com/Shougo/neobundle.vim.git ~/.vim/bundle/neobundle.vim
 " ------------------------------------------------------
 if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
-    call neobundle#rc(expand('~/.vim/bundle/'))
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+  call neobundle#rc(expand('~/.vim/bundle/'))
 endif
 NeoBundle 'vim-scripts/yanktmp.vim'
 NeoBundle 'vim-scripts/Colour-Sampler-Pack'
@@ -105,8 +104,8 @@ omap <silent> <C-e>      :NERDTreeToggle<CR>
 imap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
 cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
 if has('NERDTree')
-    autocmd vimenter * if !argc() | NERDTree | endif
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+  autocmd vimenter * if !argc() | NERDTree | endif
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 endif
 let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\.git$', '\~$']
 let g:NERDTreeShowHidden=1
@@ -122,7 +121,7 @@ noremap ff :call Jump2pm('e')<ENTER>
 noremap fd :call Jump2pm('sp')<ENTER>
 noremap ft :call Jump2pm('tabe')<ENTER>
 if isdirectory('local/lib/perl5')
-    setlocal path+=local/lib/perl5
+  setlocal path+=local/lib/perl5
 endif
 "=======================================================
 
@@ -182,17 +181,17 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 " Use camel case completion.
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_ctags_arguments_list = {
-  \ 'perl' : '-R -h ".pm"'
-  \ }
+      \ 'perl' : '-R -h ".pm"'
+      \ }
 " Dict
 let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default'  : '',
-    \ 'perl'     : $HOME.'/.vim/dict/perl.dict'
-    \ }
+      \ 'default'  : '',
+      \ 'perl'     : $HOME.'/.vim/dict/perl.dict'
+      \ }
 
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
+  let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
@@ -286,7 +285,7 @@ map <silent> sP :call YanktmpPaste_P()<CR>
 " pathogen
 " ------------------------------------------------------
 if has('pathogen')
-    call pathogen#infect()
+  call pathogen#infect()
 endif
 "=======================================================
 
@@ -295,10 +294,10 @@ endif
 " 前回終了したカーソル位置に移動する
 " ------------------------------------------------------
 if has("autocmd")
-    autocmd BufReadPost *
-                \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-                \   exe "normal! g'\"" |
-                \ endif
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+        \   exe "normal! g'\"" |
+        \ endif
 endif
 "=======================================================
 
@@ -307,56 +306,56 @@ endif
 " 文字コードの自動認識
 " ------------------------------------------------------
 if &encoding !=# 'utf-8'
-    set encoding=japan
-    set fileencoding=japan
+  set encoding=japan
+  set fileencoding=japan
 endif
 if has('iconv')
-    let s:enc_euc = 'euc-jp'
-    let s:enc_jis = 'iso-2022-jp'
-    " iconvがeucJP-msに対応しているかをチェック
-    if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
-        let s:enc_euc = 'eucjp-ms'
-        let s:enc_jis = 'iso-2022-jp-3'
-        " iconvがJISX0213に対応しているかをチェック
-    elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-        let s:enc_euc = 'euc-jisx0213'
-        let s:enc_jis = 'iso-2022-jp-3'
-    endif
-    " fileencodingsを構築
-    if &encoding ==# 'utf-8'
-        let s:fileencodings_default = &fileencodings
-        let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-        let &fileencodings = &fileencodings .','. s:fileencodings_default
-        unlet s:fileencodings_default
+  let s:enc_euc = 'euc-jp'
+  let s:enc_jis = 'iso-2022-jp'
+  " iconvがeucJP-msに対応しているかをチェック
+  if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
+    let s:enc_euc = 'eucjp-ms'
+    let s:enc_jis = 'iso-2022-jp-3'
+    " iconvがJISX0213に対応しているかをチェック
+  elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
+    let s:enc_euc = 'euc-jisx0213'
+    let s:enc_jis = 'iso-2022-jp-3'
+  endif
+  " fileencodingsを構築
+  if &encoding ==# 'utf-8'
+    let s:fileencodings_default = &fileencodings
+    let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
+    let &fileencodings = &fileencodings .','. s:fileencodings_default
+    unlet s:fileencodings_default
+  else
+    let &fileencodings = &fileencodings .','. s:enc_jis
+    set fileencodings+=utf-8,ucs-2le,ucs-2
+    if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
+      set fileencodings+=cp932
+      set fileencodings-=euc-jp
+      set fileencodings-=euc-jisx0213
+      set fileencodings-=eucjp-ms
+      let &encoding = s:enc_euc
+      let &fileencoding = s:enc_euc
     else
-        let &fileencodings = &fileencodings .','. s:enc_jis
-        set fileencodings+=utf-8,ucs-2le,ucs-2
-        if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
-            set fileencodings+=cp932
-            set fileencodings-=euc-jp
-            set fileencodings-=euc-jisx0213
-            set fileencodings-=eucjp-ms
-            let &encoding = s:enc_euc
-            let &fileencoding = s:enc_euc
-        else
-            let &fileencodings = &fileencodings .','. s:enc_euc
-        endif
+      let &fileencodings = &fileencodings .','. s:enc_euc
     endif
-    " 定数を処分
-    unlet s:enc_euc
-    unlet s:enc_jis
+  endif
+  " 定数を処分
+  unlet s:enc_euc
+  unlet s:enc_jis
 endif
 " 日本語を含まない場合は fileencoding に encoding を使うようにする
 if has('autocmd')
-    function! AU_ReCheck_FENC()
-        if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-            let &fileencoding=&encoding
-        endif
-    endfunction
-    autocmd BufReadPost * call AU_ReCheck_FENC()
+  function! AU_ReCheck_FENC()
+    if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
+      let &fileencoding=&encoding
+    endif
+  endfunction
+  autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
 if exists('&ambiwidth')
-    set ambiwidth=double
+  set ambiwidth=double
 endif
 "=======================================================
 
@@ -377,16 +376,23 @@ let g:vim_markdown_folding_disabled=1
 " ファイルタイプごとの個別設定
 " Ref.: http://d.hatena.ne.jp/wiredool/20120618/1340019962
 " ------------------------------------------------------
+filetype plugin on
+filetype indent on
 filetype plugin indent on
 " ------------------------------------------------------
 augroup filetypedetect
-    " crontab
-    autocmd! BufRead /tmp/crontab.* :set nobackup nowritebackup
-    " Perl
-    autocmd! BufNewFile,BufRead *.t    setf perl
-    autocmd! BufNewFile,BufRead *.psgi setf perl
-    " Ruby
-    autocmd! BufNewFile,BufRead *.rb   setl ts=2 sw=2 sts=0
+  " crontab
+  autocmd! BufRead /tmp/crontab.* :set nobackup nowritebackup
+  " Perl
+  autocmd! BufNewFile,BufRead *.t    :set filetype=perl
+  autocmd! BufNewFile,BufRead *.psgi :set filetype=perl
+  " Ruby
+  autocmd FileType css   setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType ruby  setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType haml  setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType vim   setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType yaml  setlocal sw=2 sts=2 ts=2 et
 augroup END
+
 "=======================================================
 
