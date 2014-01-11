@@ -67,6 +67,7 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'vim-perl/vim-perl'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'rking/ag.vim'
+NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
@@ -78,7 +79,7 @@ NeoBundle 'Shougo/vimproc', {
       \ }
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
-filetype plugin indent on
+NeoBundle 'Shougo/neosnippet-snippets'
 "=======================================================
 
 "=======================================================
@@ -393,6 +394,5 @@ augroup filetypedetect
   autocmd FileType vim   setlocal sw=2 sts=2 ts=2 et
   autocmd FileType yaml  setlocal sw=2 sts=2 ts=2 et
 augroup END
-
 "=======================================================
 
