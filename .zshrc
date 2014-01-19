@@ -49,3 +49,7 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
 source $HOME/.zshrc.custom
+
+if [ -f $HOME/.zshrc.locl ]; then
+  source $HOME/.zshrc.custom
+fi

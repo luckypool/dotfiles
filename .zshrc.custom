@@ -17,40 +17,38 @@ export LESSCHARSET=utf-8
 #
 # for ls -G
 # ------------------------------------------------------------------------
-alias ls='ls -G'
 if [[ $OSTYPE =~ "linux" ]]; then
-    alias ls='ls --color=auto'
+  alias ls='ls --color=auto'
 else
-    alias ls='ls -G'
+  alias ls='ls -G'
 fi
 export CLICOLOR=1
-export LSCOLORS='gxfxcxdxbxegedabagacad'
+export LSCOLORS=gxfxcxdxbxegedabagacad
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
+# ========================================================================
 # CPANM
 # ------------------------------------------------------------------------
 alias cpanm-outdated='cpan-outdated | cpanm'
 # ========================================================================
 
-
 # # ========================================================================
 # # TMUX session
 # # ------------------------------------------------------------------------
-# #
 # if which tmux 2>&1 >/dev/null; then
 #     #if not inside a tmux session, and if no session is started, start a new session
 #     test -z "$TMUX" && (tmux attach || tmux new-session)
 # fi
-# # ========================================================================
-
-## PATH
 # ========================================================================
-# PATH configuration
-#
+
+# ========================================================================
+# PATH
+# ------------------------------------------------------------------------
 # homebrew
 # ------------------------------------------------------------------------
 export PATH=/usr/local/bin:$PATH
 
+# ------------------------------------------------------------------------
 # plenv
 # ------------------------------------------------------------------------
 if [ -d ${HOME}/.plenv  ] ; then
@@ -58,41 +56,42 @@ if [ -d ${HOME}/.plenv  ] ; then
   eval "$(plenv init -)"
 fi
 
+# ------------------------------------------------------------------------
 # rbenv
+# ------------------------------------------------------------------------
 if [ -d ${HOME}/.rbenv  ] ; then
   export PATH=${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}
   eval "$(rbenv init -)"
 fi
 
-# nodebrew
-if [ -d ${HOME}/.nodebrew  ] ; then
-    export PATH=${HOME}/.nodebrew/current/bin:${PATH}
-    eval "$(plenv init -)"
-fi
-
-# rbenv
 # ------------------------------------------------------------------------
-# https://github.com/sstephenson/rbenv
-# https://github.com/sstephenson/ruby-build
-if [ -d ${HOME}/.rbenv ] ; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
+# nodebrew
+# ------------------------------------------------------------------------
+if [ -d ${HOME}/.nodebrew  ] ; then
+  export PATH=${HOME}/.nodebrew/current/bin:${PATH}
 fi
 
+# ------------------------------------------------------------------------
 # nodebrew
 # ------------------------------------------------------------------------
 if [ -d ${HOME}/.nodebrew ] ; then
-    export PATH=$HOME/.nodebrew/current/bin:$PATH
+  export PATH=$HOME/.nodebrew/current/bin:$PATH
 fi
 
-# pythonz
 # ------------------------------------------------------------------------
-[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc
+# pyenv
+# ------------------------------------------------------------------------
+# git://github.com/yyuu/pyenv.git
+if [ -d ${HOME}/.pyenv ] ; then
+    export PATH="$HOME/.pyenv/bin:$PATH"
+    eval "$(pyenv init -)"
+fi
 
+# ------------------------------------------------------------------------
 # heroku
 # ------------------------------------------------------------------------
 if [ -d /usr/local/heroku/bin ] ; then
-    export PATH="/usr/local/heroku/bin:$PATH"
+  export PATH="/usr/local/heroku/bin:$PATH"
 fi
 # ========================================================================
 
@@ -101,21 +100,21 @@ fi
 # ------------------------------------------------------------------------
 #
 case "${OSTYPE}" in
-    # MacOSX
-    darwin*)
-        # ここに設定
-        [ -f ~/dotfiles/.zshrc.osx ] && source ~/dotfiles/.zshrc.osx
-        ;;
-    # Linux
-    linux*)
-        # ここに設定
-        [ -f ~/dotfiles/.zshrc.linux ] && source ~/dotfiles/.zshrc.linux
-        ;;
+  # MacOSX
+  darwin*)
+  # ここに設定
+  [ -f ~/dotfiles/.zshrc.osx ] && source ~/dotfiles/.zshrc.osx
+  ;;
+  # Linux
+  linux*)
+  # ここに設定
+  [ -f ~/dotfiles/.zshrc.linux ] && source ~/dotfiles/.zshrc.linux
+  ;;
 esac
 
 # local固有設定
 # ------------------------------------------------------------------------
 if [ -f ~/.zshrc.local ]; then
-    source ~/.zshrc.local
+  source ~/.zshrc.local
 fi
 # ========================================================================

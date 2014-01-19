@@ -1,14 +1,16 @@
 [user]
-    name = luckypool
-    email = luckypool314@gmail.com
+  name = luckypool
+  email = luckypool314@gmail.com
 [color]
-    ui = auto
+  ui = auto
 [alias]
-    tr = log --graph --all --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-    co = checkout
-    st = status
-    ci = commit
-    br = branch
-    merge = merge --no-ff
+  tr = log --graph --all --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+  co = checkout
+  st = status
+  ci = commit
+  br = branch
+  merge = merge --no-ff
 [core]
-    editor = vim
+  editor = vim
+[heroku]
+  account = personal

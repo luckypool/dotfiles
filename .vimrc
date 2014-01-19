@@ -62,6 +62,7 @@ NeoBundle 'tpope/vim-fugitive'
 " NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'nakatakeshi/jump2pm.vim'
+NeoBundle 'tpope/vim-pathogen'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'vim-perl/vim-perl'
@@ -244,6 +245,7 @@ let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " ------------------------------------------------------
 " neosnippet
 " ------------------------------------------------------
+let g:neosnippet#snippets_directory='~/.vim/snippets'
 "Plugin key-mappings.
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
