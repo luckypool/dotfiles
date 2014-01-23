@@ -6,7 +6,8 @@ set fencs=utf-8,iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,ucs-bom,euc-jp,euc
 set fenc=utf-8
 set fileformat=unix
 set fileformats=unix,dos,mac
-set sw=2 sts=2 ts=2 et
+set sw=4 sts=4 ts=4
+set et
 set number
 set bs=indent,eol,start
 set laststatus=2
@@ -389,12 +390,16 @@ augroup filetypedetect
   " Perl
   autocmd! BufNewFile,BufRead *.t    :set filetype=perl
   autocmd! BufNewFile,BufRead *.psgi :set filetype=perl
+  " coffee script
+  autocmd! BufNewFile,BufRead *.coffee :set filetype=javascript
   " Ruby
   autocmd FileType css   setlocal sw=2 sts=2 ts=2 et
   autocmd FileType ruby  setlocal sw=2 sts=2 ts=2 et
   autocmd FileType haml  setlocal sw=2 sts=2 ts=2 et
   autocmd FileType vim   setlocal sw=2 sts=2 ts=2 et
   autocmd FileType yaml  setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType html  setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
 augroup END
 "=======================================================
 
