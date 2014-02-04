@@ -52,7 +52,7 @@ export PATH=/usr/local/bin:$PATH
 # anyenv
 # ------------------------------------------------------------------------
 if [ -d ${HOME}/.anyenv ] ; then
-    export PATH="$HOME/.anyenv/bin:$HOME/.anyenv/shims:$PATH"
+    export PATH="$HOME/.anyenv/bin:$PATH"
     eval "$(anyenv init -)"
 fi
 
