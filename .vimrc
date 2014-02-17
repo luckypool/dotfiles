@@ -17,6 +17,7 @@ set lcs=tab:>.,trail:_
 set list
 set backup
 set mouse=a
+set cursorline
 set directory=$HOME/.vim/swp/
 set backupdir=$HOME/.vim/backup/
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
