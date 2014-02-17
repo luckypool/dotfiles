@@ -61,7 +61,7 @@ NeoBundle 'vim-scripts/Command-T'
 NeoBundle 'vim-scripts/Align'
 NeoBundle 'vim-scripts/hybrid.vim'
 NeoBundle 'tpope/vim-fugitive'
-" NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'nakatakeshi/jump2pm.vim'
 NeoBundle 'tpope/vim-pathogen'
@@ -271,7 +271,12 @@ endif
 syntax on
 set background=dark
 " colorscheme wombat256
-:silent! colorscheme hybrid
+if ($ft=='ruby')
+  colorscheme Tomorrow-Night
+else
+  colorscheme hybrid
+endif
+
 " 半透明にする
 highlight Normal ctermbg=none
 "=======================================================
@@ -397,7 +402,6 @@ augroup filetypedetect
   autocmd FileType css   setlocal sw=2 sts=2 ts=2 et
   autocmd FileType ruby  setlocal sw=2 sts=2 ts=2 et
   autocmd FileType haml  setlocal sw=2 sts=2 ts=2 et
-  autocmd FileType vim   setlocal sw=2 sts=2 ts=2 et
   autocmd FileType yaml  setlocal sw=2 sts=2 ts=2 et
   autocmd FileType html  setlocal sw=2 sts=2 ts=2 et
   autocmd FileType javascript setlocal sw=4 sts=4 ts=4 et
