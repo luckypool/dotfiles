@@ -399,6 +399,9 @@ augroup filetypedetect
   " coffee script
   autocmd! BufNewFile,BufRead *.coffee :set filetype=javascript
   " Ruby
+  autocmd! BufNewFile,BufRead Podfile :set filetype=ruby
+  autocmd! BufNewFile,BufRead *.podspec :set filetype=ruby
+  " Others
   autocmd FileType css   setlocal sw=2 sts=2 ts=2 et
   autocmd FileType ruby  setlocal sw=2 sts=2 ts=2 et
   autocmd FileType haml  setlocal sw=2 sts=2 ts=2 et
