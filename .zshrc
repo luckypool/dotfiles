@@ -7,7 +7,7 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 
 ZSH_THEME="robbyrussell"
-export RPROMPT="%{$fg_no_bold[black]%}%n%{$reset_color%}"
+export RPROMPT="%{$fg_no_bold[black]%}%n@$HOST%{$reset_color%}"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
