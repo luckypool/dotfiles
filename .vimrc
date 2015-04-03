@@ -398,8 +398,6 @@ augroup filetypedetect
   " Perl
   autocmd! BufNewFile,BufRead *.t    :set filetype=perl
   autocmd! BufNewFile,BufRead *.psgi :set filetype=perl
-  " coffee script
-  autocmd! BufNewFile,BufRead *.coffee :set filetype=javascript
   " Ruby
   autocmd! BufNewFile,BufRead Podfile :set filetype=ruby
   autocmd! BufNewFile,BufRead *.podspec :set filetype=ruby
