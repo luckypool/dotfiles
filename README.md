@@ -7,11 +7,6 @@ install
 
 - https://github.com/sorin-ionescu/prezto
 
-or
-
-- https://github.com/robbyrussell/oh-my-zsh
-
-
 ### Making symbolic link of dotfile to your home directory
 
 run shell script
