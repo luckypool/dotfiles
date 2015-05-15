@@ -1,13 +1,11 @@
 README
 ====
 
-### install
+### Prepare zsh & prezto
 
-clone
 
 ```
-cd
-git clone git@github.com:luckypool/dotfiles.git .dotfiles
+zsh
 ```
 
 install prezto see [prezto/README.md](https://github.com/sorin-ionescu/prezto/blob/master/README.md)
@@ -23,13 +21,23 @@ done
 
 Do re-open new zsh terminal.
 
+### Cloen repo
+
+```
+cd
+git clone git@github.com:luckypool/dotfiles.git .dotfiles
+```
 
 ### Making symbolic link of dotfile to your home directory
+
+```
+cd ~/.dotfiles
+```
 
 run shell script
 
 ```bash
-sh ./install-dotfiles.sh
+./install-dotfiles.sh
 ```
 
 ### 2) setup vimrc
@@ -37,5 +45,5 @@ sh ./install-dotfiles.sh
 run shell script
 
 ```bash
-sh ./setup-vimrc.sh
+./setup-vimrc.sh
 ```
