@@ -92,6 +92,7 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'elixir-lang/vim-elixir'
 
 " My Bundles here:
 " Refer to |:NeoBundle-examples|.
