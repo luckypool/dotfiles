@@ -70,6 +70,15 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Let NeoBundle manage NeoBundle
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin'  : 'make -f make_cygwin.mak',
+      \     'mac'     : 'make -f make_mac.mak',
+      \     'unix'    : 'make -f make_unix.mak',
+      \    },
+      \ }
 NeoBundle 'vim-scripts/yanktmp.vim'
 NeoBundle 'vim-scripts/Colour-Sampler-Pack'
 NeoBundle 'vim-scripts/Command-T'
@@ -84,9 +93,7 @@ NeoBundle 'nakatakeshi/jump2pm.vim'
 NeoBundle 'tpope/vim-pathogen'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'vim-perl/vim-perl'
 NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'rking/ag.vim'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
@@ -428,7 +435,7 @@ augroup filetypedetect
   autocmd FileType haml  setlocal sw=2 sts=2 ts=2 et
   autocmd FileType yaml  setlocal sw=2 sts=2 ts=2 et
   autocmd FileType html  setlocal sw=2 sts=2 ts=2 et
-  autocmd FileType javascript setlocal sw=4 sts=4 ts=4 et
+  autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
 augroup END
 "=======================================================
 

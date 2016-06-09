@@ -26,4 +26,6 @@ fi
 autoload -Uz compinit
 compinit -u
 
+export LESS='-R'
+export LESSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
 
