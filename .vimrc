@@ -429,6 +429,8 @@ augroup filetypedetect
   " Ruby
   autocmd! BufNewFile,BufRead Podfile :set filetype=ruby
   autocmd! BufNewFile,BufRead *.podspec :set filetype=ruby
+  " json
+  autocmd! BufNewFile,BufRead *.json :set filetype=javascript
   " Others
   autocmd FileType css   setlocal sw=2 sts=2 ts=2 et
   autocmd FileType ruby  setlocal sw=2 sts=2 ts=2 et
