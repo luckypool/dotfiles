@@ -100,6 +100,7 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'elixir-lang/vim-elixir'
+NeoBundle 'fatih/vim-go'
 
 " My Bundles here:
 " Refer to |:NeoBundle-examples|.
@@ -428,6 +429,7 @@ augroup filetypedetect
   autocmd! BufNewFile,BufRead *.psgi :set filetype=perl
   " Ruby
   autocmd! BufNewFile,BufRead Podfile :set filetype=ruby
+  autocmd! BufNewFile,BufRead Schemafile :set filetype=ruby
   autocmd! BufNewFile,BufRead *.podspec :set filetype=ruby
   " json
   autocmd! BufNewFile,BufRead *.json :set filetype=javascript

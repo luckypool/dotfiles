@@ -5,6 +5,28 @@
 export PATH=/usr/local/bin:$PATH
 
 # ------------------------------------------------------------------------
+# anyenv
+# ------------------------------------------------------------------------
+if [ -d ${HOME}/.anyenv ] ; then
+    export PATH="$HOME/.anyenv/bin:$PATH"
+    eval "$(anyenv init -)"
+    for D in `ls $HOME/.anyenv/envs`
+    do
+        export PATH="$HOME/.anyenv/envs/$D/shims:$PATH"
+    done
+fi
+
+
+# ------------------------------------------------------------------------
+# exenv
+# ------------------------------------------------------------------------
+if [ -d ${HOME}/.exenv ] ; then
+    export PATH="$HOME/.exenv/bin:$PATH"
+    eval "$(exenv init -)"
+fi
+
+
+# ------------------------------------------------------------------------
 # heroku
 # ------------------------------------------------------------------------
 if [ -d /usr/local/heroku/bin ] ; then
