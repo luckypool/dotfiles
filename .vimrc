@@ -22,6 +22,7 @@ set directory=$HOME/.vim/swp/
 set backupdir=$HOME/.vim/backup/
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 set nocompatible
+set mmp=5000
 " ------------------------------------------------------
 " タブ操作のキーマッピング
 " ------------------------------------------------------
@@ -45,87 +46,123 @@ filetype plugin indent off
 "=======================================================
 
 
-"=======================================================
-" NeoBundle
-" ------------------------------------------------------
-" do setup like bellow...
-" $ git clone git://github.com/Shougo/neobundle.vim.git ~/.vim/bundle/neobundle.vim
-" ------------------------------------------------------
+if &compatible
+  set nocompatible
+endif
+" Add the dein installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-" Note: Skip initialization for vim-tiny or vim-small.
-if !1 | finish | endif
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
 
-if has('vim_starting')
-  if &compatible
-    set nocompatible               " Be iMproved
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('Shougo/deoplete.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
   endif
+  call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
-  " Required:
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+  " プラグインリストを収めた TOML ファイル
+  " 予め TOML ファイル（後述）を用意しておく
+  let g:rc_dir    = expand('~/.vim/rc')
+  let s:toml      = g:rc_dir . '/dein.toml'
+  let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
+
+  " TOML を読み込み、キャッシュしておく
+  call dein#load_toml(s:toml,      {'lazy': 0})
+  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+
+  call dein#end()
+  call dein#save_state()
 endif
 
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
+" もし、未インストールものものがあったらインストール
+if dein#check_install()
+  call dein#install()
+endif
 
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin'  : 'make -f make_cygwin.mak',
-      \     'mac'     : 'make -f make_mac.mak',
-      \     'unix'    : 'make -f make_unix.mak',
-      \    },
-      \ }
-NeoBundle 'vim-scripts/yanktmp.vim'
-NeoBundle 'vim-scripts/Colour-Sampler-Pack'
-NeoBundle 'vim-scripts/Command-T'
-NeoBundle 'vim-scripts/Align'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'matchit.zip'
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'chriskempson/vim-tomorrow-theme'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'nakatakeshi/jump2pm.vim'
-NeoBundle 'tpope/vim-pathogen'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'elixir-lang/vim-elixir'
-NeoBundle 'fatih/vim-go'
-
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-" Note: You don't set neobundle setting in .gvimrc!
-
-call neobundle#end()
-
-" Required:
-filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"=======================================================
-
-"=======================================================
-" unite
-" ------------------------------------------------------
-" insert modeで開始
-let g:unite_enable_start_insert=1
-" buffer 一覧
-noremap <c-o> :<c-u>Unite buffer -direction=botright <cr>
-" file 一覧
-noremap <c-i>  :<c-u>UniteWithBufferDir -buffer-name=files file-direction=botright <cr></cr></c-u></c-i></cr></c-u></c-o>
-"=======================================================
+" "=======================================================
+" " NeoBundle
+" " ------------------------------------------------------
+" " do setup like bellow...
+" " $ git clone git://github.com/Shougo/neobundle.vim.git ~/.vim/bundle/neobundle.vim
+" " ------------------------------------------------------
+" 
+" " Note: Skip initialization for vim-tiny or vim-small.
+" if !1 | finish | endif
+" 
+" if has('vim_starting')
+"   if &compatible
+"     set nocompatible               " Be iMproved
+"   endif
+" 
+"   " Required:
+"   set runtimepath+=~/.vim/bundle/neobundle.vim/
+" endif
+" 
+" " Required:
+" call neobundle#begin(expand('~/.vim/bundle/'))
+" 
+" " Let NeoBundle manage NeoBundle
+" " Required:
+" NeoBundleFetch 'Shougo/neobundle.vim'
+" 
+" NeoBundle 'Shougo/vimproc', {
+"       \ 'build' : {
+"       \     'windows' : 'make -f make_mingw32.mak',
+"       \     'cygwin'  : 'make -f make_cygwin.mak',
+"       \     'mac'     : 'make -f make_mac.mak',
+"       \     'unix'    : 'make -f make_unix.mak',
+"       \    },
+"       \ }
+" NeoBundle 'vim-scripts/yanktmp.vim'
+" NeoBundle 'vim-scripts/Colour-Sampler-Pack'
+" NeoBundle 'vim-scripts/Command-T'
+" NeoBundle 'vim-scripts/Align'
+" NeoBundle 'kchmck/vim-coffee-script'
+" NeoBundle 'matchit.zip'
+" NeoBundle 'w0ng/vim-hybrid'
+" NeoBundle 'chriskempson/vim-tomorrow-theme'
+" NeoBundle 'tpope/vim-fugitive'
+" NeoBundle 'itchyny/lightline.vim'
+" NeoBundle 'nakatakeshi/jump2pm.vim'
+" NeoBundle 'tpope/vim-pathogen'
+" NeoBundle 'mattn/emmet-vim'
+" NeoBundle 'scrooloose/nerdtree'
+" NeoBundle 'plasticboy/vim-markdown'
+" NeoBundle 'vim-ruby/vim-ruby'
+" NeoBundle 'Shougo/unite.vim'
+" NeoBundle 'Shougo/neocomplcache'
+" NeoBundle 'Shougo/neosnippet'
+" NeoBundle 'Shougo/neosnippet-snippets'
+" NeoBundle 'elixir-lang/vim-elixir'
+" NeoBundle 'fatih/vim-go'
+" 
+" " My Bundles here:
+" " Refer to |:NeoBundle-examples|.
+" " Note: You don't set neobundle setting in .gvimrc!
+" 
+" call neobundle#end()
+" 
+" " Required:
+" filetype plugin indent on
+" 
+" " If there are uninstalled bundles found on startup,
+" " this will conveniently prompt you to install them.
+" NeoBundleCheck
+" "=======================================================
+" 
+" "=======================================================
+" " unite
+" " ------------------------------------------------------
+" " insert modeで開始
+" let g:unite_enable_start_insert=1
+" " buffer 一覧
+" noremap <c-o> :<c-u>Unite buffer -direction=botright <cr>
+" " file 一覧
+" Noremap <c-i>  :<c-u>UniteWithBufferDir -buffer-name=files file-direction=botright <cr></cr></c-u></c-i></cr></c-u></c-o>
+" "=======================================================
 
 
 "=======================================================
@@ -299,9 +336,9 @@ endif
 "=======================================================
 " colorscheme
 " ------------------------------------------------------
-syntax on
+syntax enable
 set background=dark
-" colorscheme wombat256
+colorscheme wombat256
 if ($ft=='ruby')
   colorscheme Tomorrow-Night
 else
@@ -442,4 +479,7 @@ augroup filetypedetect
   autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
 augroup END
 "=======================================================
+
+
+set rubydll=''
 
