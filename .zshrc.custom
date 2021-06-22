@@ -1,5 +1,10 @@
 # users generic .zshrc file for zsh(1)
 
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+autoload -Uz compinit && compinit
+
+
 # ========================================================================
 # Environment variable configuration
 # ------------------------------------------------------------------------
@@ -50,12 +55,12 @@ case "${OSTYPE}" in
     # MacOSX
     darwin*)
     # ここに設定
-    [ -f ~/dotfiles/.zshrc.osx ] && source ~/dotfiles/.zshrc.osx
+    [ -f ~/.zshrc.osx ] && source ~/.zshrc.osx
     ;;
     # Linux
     linux*)
     # ここに設定
-    [ -f ~/dotfiles/.zshrc.linux ] && source ~/dotfiles/.zshrc.linux
+    [ -f ~/.zshrc.linux ] && source ~/.zshrc.linux
     ;;
 esac
 
@@ -65,3 +70,6 @@ if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
 # ========================================================================
+
+export PATH="/usr/local/opt/binutils/bin:$PATH"
+
